@@ -43,18 +43,28 @@ const ProductsContainer = styled.div`
   gap: 5px;
 `;
 
-// const ProductCard = styled(motion.div)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   padding: 15px;
-//   margin-bottom: 10px;
-//   border: 1px solid rgb(0 0 0 / 40%);
-//   border-radius: 4px;
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-//   cursor: pointer;
-// `;
+const Button = styled.button`
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 40px;
+  width: 200px;
+  transition: all 0.3s ease;
+  margin: 0 0 0 20px;
 
+  &:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+`;
 const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -199,12 +209,15 @@ const ProductList = () => {
   return (
     <Container>
       <Title>My Products</Title>
-      <SearchBar
-        type="text"
-        placeholder="Search for cars..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <SearchBar
+          type="text"
+          placeholder="Search for cars..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <Button>+ Add product</Button>
+      </div>
       <ProductsContainer>
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product, index) => (
