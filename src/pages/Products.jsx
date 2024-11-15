@@ -43,17 +43,17 @@ const ProductsContainer = styled.div`
   gap: 5px;
 `;
 
-const ProductCard = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-  margin-bottom: 10px;
-  border: 1px solid rgb(0 0 0 / 40%);
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-`;
+// const ProductCard = styled(motion.div)`
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 15px;
+//   margin-bottom: 10px;
+//   border: 1px solid rgb(0 0 0 / 40%);
+//   border-radius: 4px;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   cursor: pointer;
+// `;
 
 const ProductInfo = styled.div`
   display: flex;
@@ -70,17 +70,71 @@ const ProductInfo = styled.div`
     font-size: 14px;
   }
 `;
-const ProductImage = styled.img`
-  width: 100px;
-  height: 100px;
+const ProductImage = styled(motion.img)`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 8px;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  width: 98%;
+  /* margin: 0 0 0 10px; */
+  height: 180px;
 `;
 
 const NoResults = styled.p`
   text-align: center;
   color: #888;
 `;
+
+///////////////////////////////////////////////////////////////////////////
+
+function ProductCard({ data, index }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  ///////////////////////////////////////////////////////////
+
+  const backendEndpoint = useSelector(
+    (state) => state.backendEndpoint.endpoint
+  );
+
+  //////////////////////////////////////////////////////////
+  return (
+    <motion.div
+      onHoverStart={() => {
+        setIsHovered(true);
+      }}
+      onHoverEnd={() => {
+        setIsHovered(false);
+      }}
+      whileTap={{ scale: 0.98 }}
+      variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+      initial="hidden"
+      animate="visible"
+      whileHover={{
+        scale: 1.03,
+        filter: "grayscale(100%)",
+      }}
+      transition={{ opacity: { duration: 0.3, delay: index * 0.1 } }}
+    >
+      <Link to={"/edit-product/"} style={{ textDecoration: "none" }}>
+        <ProductImage
+          animate={{ opacity: isHovered ? 0.6 : 1 }}
+          id="gameCardImage"
+          src={`${backendEndpoint}/${data.images[0]}`}
+        />
+        <motion.h5
+          animate={{ opacity: !isHovered ? 0 : 1 }}
+          id="gameCardTitle"
+          className="card-title"
+        >
+          {data.name}
+        </motion.h5>
+      </Link>
+    </motion.div>
+  );
+}
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -137,19 +191,8 @@ const ProductList = () => {
       />
       <ProductsContainer>
         {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <Link to="/edit-product">
-              <ProductCard whileHover={{ scale: 1.02 }} key={product.id}>
-                <ProductImage
-                  src={`${backendEndpoint}/${product.images[0]}`}
-                  alt={product.title}
-                />
-                <ProductInfo>
-                  <h4>{product.title}</h4>
-                  <p>Price: ₹{product.price}</p>
-                </ProductInfo>
-              </ProductCard>
-            </Link>
+          filteredProducts.map((product, index) => (
+            <ProductCard key={product.id} data={product} index={index} />
           ))
         ) : (
           <NoResults>No cars found matching your search.</NoResults>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -129,7 +129,14 @@ const LoginPage = () => {
     }
   }
 
-  ///////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    cookies.remove("access_token", { path: "/" });
+    cookies.remove("refresh_token", { path: "/" });
+  }, []);
+
+  /////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <Container>

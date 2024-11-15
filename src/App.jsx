@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Cookies from "universal-cookie";
+import { useNavigate, useLocation } from "react-router-dom";
+
+////////////////////////////////////////////////////////////////
+
 import Login from "./pages/Login";
 import Products from "./pages/Products";
 import EditProduct from "./pages/EditProduct";
-import "./App.css";
+
+////////////////////////////////////////////////////////////////
 
 const App = () => {
+  const cookies = new Cookies();
+  const navigate = useNavigate();
+
+  ////////////////////////////////////
+
+  useEffect(() => {
+    if (cookies.get("access_token")) {
+    } else {
+      navigate("/login");
+    }
+  }, [cookies.get("access_token")]);
+
+  /////////////////////////////////////
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
