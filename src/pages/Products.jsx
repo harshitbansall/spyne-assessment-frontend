@@ -95,6 +95,7 @@ const ProductImage = styled(motion.img)`
 const NoResults = styled.p`
   text-align: center;
   color: #888;
+  grid-column: 1 / span 4;
 `;
 
 const StyledProductCard = styled(motion.div)`
@@ -216,7 +217,9 @@ const ProductList = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <Button>+ Add product</Button>
+        <Link to="/add-product">
+          <Button>+ Add product</Button>
+        </Link>
       </div>
       <ProductsContainer>
         {filteredProducts.length > 0 ? (

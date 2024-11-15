@@ -9,6 +9,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
 import EditProduct from "./pages/EditProduct";
+import AddProduct from "./pages/AddProduct";
 
 ////////////////////////////////////////////////////////////////
 
@@ -32,6 +33,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Products />} />
       <Route path="/edit-product" element={<EditProduct />} />
+      <Route path="/add-product" element={<AddProduct />} />
     </Routes>
   );
 };
