@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const isProduction = true;
+const isProduction = false;
 const localhost = "http://192.168.1.6:8000";
 const production = "https://spyneassessment.pythonanywhere.com";
 

@@ -79,8 +79,7 @@ const ProductImage = styled(motion.img)`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
   border-radius: 20px;
   width: 98%;
-  /* margin: 0 0 0 10px; */
-  height: 180px;
+  height: 150px;
 `;
 
 const NoResults = styled.p`
@@ -88,6 +87,28 @@ const NoResults = styled.p`
   color: #888;
 `;
 
+const StyledProductCard = styled(motion.div)`
+  background: transparent;
+  border: 0px solid;
+  border-radius: 0px;
+  overflow: visible;
+  margin: 0 0 5px 0;
+  padding: 10px 10px 0 0;
+  border-radius: 12px;
+  position: relative;
+`;
+
+const ProductTitle = styled(motion.h5)`
+  font-family: Calibre;
+  color: black;
+  position: absolute;
+  font-size: 35px;
+  margin: 10px;
+  top: 25%;
+  font-weight: 800;
+  left: 13%;
+  right: 10%;
+`;
 ///////////////////////////////////////////////////////////////////////////
 
 function ProductCard({ data, index }) {
@@ -101,7 +122,7 @@ function ProductCard({ data, index }) {
 
   //////////////////////////////////////////////////////////
   return (
-    <motion.div
+    <StyledProductCard
       onHoverStart={() => {
         setIsHovered(true);
       }}
@@ -121,18 +142,13 @@ function ProductCard({ data, index }) {
       <Link to={"/edit-product/"} style={{ textDecoration: "none" }}>
         <ProductImage
           animate={{ opacity: isHovered ? 0.6 : 1 }}
-          id="gameCardImage"
           src={`${backendEndpoint}/${data.images[0]}`}
         />
-        <motion.h5
-          animate={{ opacity: !isHovered ? 0 : 1 }}
-          id="gameCardTitle"
-          className="card-title"
-        >
-          {data.name}
-        </motion.h5>
+        <ProductTitle animate={{ opacity: !isHovered ? 0 : 1 }}>
+          {data.title}
+        </ProductTitle>
       </Link>
-    </motion.div>
+    </StyledProductCard>
   );
 }
 
