@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "Calibre";
+  src: url("./static/fonts/Calibre/Calibre-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Calibre Semibold";
+  src: url("./static/fonts/Calibre/Calibre-Semibold.ttf") format("truetype");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Calibre;
+}
